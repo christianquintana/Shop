@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Entities;
 
+    //Delete the previous IRepository 
     public interface IRepository
     {
         void AddProduct(Product product);

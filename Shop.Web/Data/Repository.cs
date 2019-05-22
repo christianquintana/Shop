@@ -1,11 +1,11 @@
-﻿
-namespace Shop.Web.Data
+﻿namespace Shop.Web.Data
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
 
+    //Delete the previous Repository 
     public class Repository : IRepository
     {
         private readonly DataContext context;
