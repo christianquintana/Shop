@@ -1,0 +1,69 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appService_ShopCeQn_name": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_location": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_name": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_resourceGroup": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_skuName": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_skuTier": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_skuFamily": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_skuSize": {
+      "type": "string"
+    },
+    "appServicePlan_FreePlan_workerSizeId": {
+      "type": "int"
+    }
+  },
+  "resources": [
+    {
+      "location": "[parameters('appServicePlan_FreePlan_location')]",
+      "name": "[parameters('appService_ShopCeQn_name')]",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2015-08-01",
+      "tags": {
+        "[concat('hidden-related:', resourceId(parameters('appServicePlan_FreePlan_resourceGroup'),'Microsoft.Web/serverfarms', parameters('appServicePlan_FreePlan_name')))]": "empty"
+      },
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/serverFarms', parameters('appServicePlan_FreePlan_name'))]"
+      ],
+      "kind": "app",
+      "properties": {
+        "name": "[parameters('appService_ShopCeQn_name')]",
+        "serverFarmId": "[resourceId(parameters('appServicePlan_FreePlan_resourceGroup'),'Microsoft.Web/serverfarms', parameters('appServicePlan_FreePlan_name'))]",
+        "kind": "app",
+        "httpsOnly": true
+      }
+    },
+    {
+      "location": "[parameters('appServicePlan_FreePlan_location')]",
+      "name": "[parameters('appServicePlan_FreePlan_name')]",
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-08-01",
+      "sku": {
+        "name": "[parameters('appServicePlan_FreePlan_skuName')]",
+        "tier": "[parameters('appServicePlan_FreePlan_skuTier')]",
+        "family": "[parameters('appServicePlan_FreePlan_skuFamily')]",
+        "size": "[parameters('appServicePlan_FreePlan_skuSize')]"
+      },
+      "properties": {
+        "name": "[parameters('appServicePlan_FreePlan_name')]"
+      }
+    }
+  ]
+}

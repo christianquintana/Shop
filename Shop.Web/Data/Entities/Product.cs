@@ -15,7 +15,7 @@
         public decimal Price { get; set; }
 
         [Display(Name = "Image")]
-        public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; } //ruta donde vamos a guardar la imagen
 
         [Display(Name = "Last Purchase")]
         public DateTime? LastPurchase { get; set; }
@@ -30,6 +30,19 @@
         public double Stock { get; set; }
 
         public User User { get; set; }
+
+        public string ImageFullPath
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(this.ImageUrl))
+                {
+                    return null;
+                }
+
+                return $"https://shopceqn.azurewebsites.net{this.ImageUrl.Substring(1)}";
+            }
+        } // set; al quitar queda como una propiedad de lectura, no modifican la base de datos
 
     }
 }
