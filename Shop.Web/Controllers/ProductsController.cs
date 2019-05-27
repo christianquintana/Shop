@@ -65,17 +65,20 @@ namespace Shop.Web.Controllers
 
                 if (view.ImageFile != null && view.ImageFile.Length > 0) //Length: tamaño del archivo
                 {
+                    var guid = Guid.NewGuid().ToString();
+                    var file = $"{guid}.jpg"; // independientemente de como se llame el archivo este se grabara con un string de caracteres que nunca se va repetir
+
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(),
                         "wwwroot\\images\\Products",
-                        view.ImageFile.FileName);
+                        file); //view.ImageFile.FileName);
 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
                         await view.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
+                    path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
                 }
 
                 var product = this.ToProduct(view, path);
@@ -151,17 +154,20 @@ namespace Shop.Web.Controllers
 
                     if (view.ImageFile != null && view.ImageFile.Length > 0) //Length: tamaño del archivo
                     {
+                        var guid = Guid.NewGuid().ToString();
+                        var file = $"{guid}.jpg"; // independientemente de como se llame el archivo este se grabara con un string de caracteres que nunca se va repetir, esto para que no hayan dos archivos iguales
+
                         path = Path.Combine(
                             Directory.GetCurrentDirectory(),
                             "wwwroot\\images\\Products",
-                            view.ImageFile.FileName);
+                            file); //view.ImageFile.FileName);
 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
                             await view.ImageFile.CopyToAsync(stream);
                         }
 
-                        path = $"~/images/Products/{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
+                        path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
                     }
 
                     var product = this.ToProduct(view, path);
