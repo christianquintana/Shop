@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Product : IEntity
+    public class Product : IEntity //herencia que indica que la clase debe contener una propiedad Id
     {
         public int Id { get; set; }
 
@@ -29,7 +29,7 @@
         [DisplayFormat(DataFormatString = "{0:N2}", ApplyFormatInEditMode = false)]
         public double Stock { get; set; }
 
-        public User User { get; set; }
+        public User User { get; set; } //relacion con tabla usuarios (.NET Core)
 
         public string ImageFullPath
         {
@@ -40,7 +40,7 @@
                     return null;
                 }
 
-                return $"https://shopceqn.azurewebsites.net{this.ImageUrl.Substring(1)}";
+                return $"https://shopceqn.azurewebsites.net{this.ImageUrl.Substring(1)}"; // Interpolación de cadenas en C#
             }
         } // set; al quitar queda como una propiedad de lectura, no modifican la base de datos
 

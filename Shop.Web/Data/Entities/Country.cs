@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Shop.Web.Data.Entities
 {
-    public class Country : IEntity
+    public class Country : IEntity //herencia que indica que la clase debe contener una propiedad Id
     {
         public int Id { get; set; }
 

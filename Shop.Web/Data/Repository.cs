@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using Entities;
 
-    //Delete the previous Repository 
+    // Eliminar el Repository anterior
     public class Repository : IRepository
     {
         private readonly DataContext context;
@@ -17,7 +17,7 @@
 
         public IEnumerable<Product> GetProducts()
         {
-            return this.context.Products.OrderBy(p => p.Name);
+            return this.context.Products.OrderBy(p => p.Name); //revisar OrderBy con GenericRepository
         }
 
         public Product GetProduct(int id)
