@@ -83,9 +83,8 @@ namespace Shop.Web.Controllers
                     path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
                 }
 
-                var product = this.ToProduct(view, path);
-                // TODO: Pending to change to: this.User.Identity.Name
-                product.User = await this.userHelper.GetUserByEmailAsync("ceqn_20@hotmail.com");
+                var product = this.ToProduct(view, path); 
+                product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name); // "ceqn_20@hotmail.com");
                 await this.productRepository.CreateAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -172,10 +171,8 @@ namespace Shop.Web.Controllers
                         path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
                     }
 
-                    var product = this.ToProduct(view, path);
-
-                    // TODO: Pending to change to: this.User.Identity.Name
-                    product.User = await this.userHelper.GetUserByEmailAsync("ceqn_20@hotmail.com");
+                    var product = this.ToProduct(view, path); 
+                    product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name); // "ceqn_20@hotmail.com");
                     await this.productRepository.UpdateAsync(product);
                 }
                 catch (DbUpdateConcurrencyException)

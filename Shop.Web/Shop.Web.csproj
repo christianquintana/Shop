@@ -17,4 +17,9 @@
     <Folder Include="wwwroot\images\Products\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.UIForms\Shop.UIForms\Shop.UIForms.csproj" />
+  </ItemGroup>
+
 </Project>
