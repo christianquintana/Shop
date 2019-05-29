@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
 
     // Clase Repositorio Producto para CRUD (Crear, Leer, Actualizar y Borrar) de Productos
-    public class ProductRepository : GenericRepository<Product>, IProductRepository // Hereda de interface IGenericRepository, IEntity
+    public class ProductRepository : GenericRepository<Product>, IProductRepository // Hereda de GenericRepository y interface IProductRepository
     {
         private readonly DataContext context;
 

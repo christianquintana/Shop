@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Identity;
     using Shop.Web.Models;
 
-    // interface de clase Helper personalizada para administrar usuarios
+    // interface de la clase UserHelper personalizada para administrar usuarios
     public interface IUserHelper
     {
         // interface del método para validar si existe y traer el usuario ingresado

@@ -12,13 +12,16 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
+    // Especifica que la clase o el método al que se aplica este atributo requiere autorización.
     [Authorize]
     public class ProductsController : Controller
     {
-        private readonly IProductRepository productRepository;
-        //private readonly IRepository repository;
+        private readonly IProductRepository productRepository; //private readonly IRepository repository;
+
         private readonly IUserHelper userHelper;
 
+        // Constructor que toma un parametro IProductRepository que es interface de la clase ProductRepository para CRUD (Crear, Leer, Actualizar y Borrar) de Productos
+        // y IUserHelper que es interface de la clase UserHelper personalizada para administrar usuarios
         public ProductsController(IProductRepository productRepository, IUserHelper userHelper) //IRepository repository,
         {
             this.productRepository = productRepository;
@@ -26,11 +29,17 @@
             this.userHelper = userHelper;
         }
 
+        // IActionResult: Define un contrato que representa el resultado de un método de acción.
+
         // GET: Products
         public IActionResult Index()
         {
+            // Método para traer todos los productos
             return View(this.productRepository.GetAll().OrderBy(p => p.Name));
         }
+       
+        // async Task: permite que las operaciones cortas se ejecuten de forma asíncrona en segundo plano, Async puede ejecutar tareas de forma asíncrona en nuevos subprocesos. 
+        // Las tareas asíncronas utilizan: Parámetros (parámetros que se envían a la tarea durante la ejecución.)
 
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -40,6 +49,7 @@
                 return NotFound();
             }
 
+            // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
@@ -49,11 +59,15 @@
             return View(product);
         }
 
+        // Acción GET para crear un producto
+
         // GET: Products/Create
         public IActionResult Create()
         {
             return View();
         }
+
+        // Acción POST para crear un producto que toma un parametro ProductViewModel 
 
         // POST: Products/Create
         [HttpPost]
@@ -64,33 +78,47 @@
             {
                 var path = string.Empty;
 
-                if (view.ImageFile != null && view.ImageFile.Length > 0) //Length: tamaño del archivo
+                // Si se a cargado un archivo imagen
+                if (view.ImageFile != null && view.ImageFile.Length > 0) // Length: tamaño del archivo imagen
                 {
+                    // GUID: identificador único global, independientemente de como se llame el archivo este se grabara con un nombre generado por un string de caracteres que nunca se va repetir
                     var guid = Guid.NewGuid().ToString();
-                    var file = $"{guid}.jpg"; // independientemente de como se llame el archivo este se grabara con un string de caracteres que nunca se va repetir
+                    var file = $"{guid}.jpg"; // Interpolación de cadenas en C#
 
+                    // Combina 3 string de caracteres para generar la ruta del archivo imagen
                     path = Path.Combine(
                         Directory.GetCurrentDirectory(),
                         "wwwroot\\images\\Products",
                         file); //view.ImageFile.FileName);
 
+                    // Se crea el nuevo archivo, si existe lo sobreescribe, requiere permisos de escritura 
                     using (var stream = new FileStream(path, FileMode.Create))
                     {
+                        // Copia de forma asíncrona el contenido del archivo cargado al target(objetivo dirigido) de destino
                         await view.ImageFile.CopyToAsync(stream);
                     }
 
-                    path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
+                    // Interpolación de cadenas en C#   ~: ruta relativa
+                    path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; 
                 }
 
-                var product = this.ToProduct(view, path); 
+                // Convertimos el ProductViewModel a Product
+                var product = this.ToProduct(view, path);
+
+                // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
                 product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name); // "ceqn_20@hotmail.com");
+
+                // Método para crear el producto
                 await this.productRepository.CreateAsync(product);
+
+                // nameof: Se utiliza para obtener el nombre de cadena simple (no calificado) de una variable, tipo o miembro y no utilizar return RedirectToAction("Index");
                 return RedirectToAction(nameof(Index));
             }
 
             return View(view);
         }
 
+        // Método para convertir un ProductViewModel a Product
         private Product ToProduct(ProductViewModel view, string path)
         {
             return new Product
@@ -107,6 +135,8 @@
             };
         }
 
+        // Acción GET para actualizar un producto
+
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -115,16 +145,20 @@
                 return NotFound();
             }
 
+            // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
                 return NotFound();
             }
 
+            // Convertimos el Product a ProductViewModel
             var view = this.ToProductViewModel(product);
+
             return View(view);
         }
 
+        // Método para convertir un Product a ProductViewModel
         private ProductViewModel ToProductViewModel(Product product)
         {
             return new ProductViewModel
@@ -141,6 +175,8 @@
             };
         }
 
+        // Acción POST para actualizar un producto que toma un parametro ProductViewModel 
+
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -152,30 +188,42 @@
                 {
                     var path = view.ImageUrl;
 
-                    if (view.ImageFile != null && view.ImageFile.Length > 0) //Length: tamaño del archivo
+                    // Si se a cargado un archivo imagen
+                    if (view.ImageFile != null && view.ImageFile.Length > 0) // Length: tamaño del archivo imagen
                     {
+                        // GUID: identificador único global, independientemente de como se llame el archivo este se grabara con un nombre generado por un string de caracteres que nunca se va repetir
                         var guid = Guid.NewGuid().ToString();
-                        var file = $"{guid}.jpg"; // independientemente de como se llame el archivo este se grabara con un string de caracteres que nunca se va repetir, esto para que no hayan dos archivos iguales
+                        var file = $"{guid}.jpg"; // Interpolación de cadenas en C#
 
+                        // Combina 3 string de caracteres para generar la ruta del archivo imagen
                         path = Path.Combine(
                             Directory.GetCurrentDirectory(),
                             "wwwroot\\images\\Products",
                             file); //view.ImageFile.FileName);
 
+                        // Se crea el nuevo archivo, si existe lo sobreescribe, requiere permisos de escritura 
                         using (var stream = new FileStream(path, FileMode.Create))
                         {
+                            // Copia de forma asíncrona el contenido del archivo cargado al target(objetivo dirigido) de destino
                             await view.ImageFile.CopyToAsync(stream);
                         }
 
-                        path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; //$: interpolar ~: ruta relativa
+                        // Interpolación de cadenas en C#   ~: ruta relativa
+                        path = $"~/images/Products/{file}"; //{view.ImageFile.FileName}"; 
                     }
 
-                    var product = this.ToProduct(view, path); 
+                    // Convertimos el Product a ProductViewModel
+                    var product = this.ToProduct(view, path);
+
+                    // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
                     product.User = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name); // "ceqn_20@hotmail.com");
+
+                    // Método para actualizar el producto
                     await this.productRepository.UpdateAsync(product);
-                }
-                catch (DbUpdateConcurrencyException)
+                }                
+                catch (DbUpdateConcurrencyException) // Excepción lanzada por el DbContext si no se llega a actualizar la base de datos
                 {
+                    // Método para validar si el producto existe 
                     if (!await this.productRepository.ExistAsync(view.Id))
                     {
                         return NotFound();
@@ -185,6 +233,7 @@
                         throw;
                     }
                 }
+                // nameof: Se utiliza para obtener el nombre de cadena simple (no calificado) de una variable, tipo o miembro y no utilizar return RedirectToAction("Index");
                 return RedirectToAction(nameof(Index));
             }
 
@@ -199,7 +248,9 @@
                 return NotFound();
             }
 
+            // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id.Value);
+
             if (product == null)
             {
                 return NotFound();
@@ -213,8 +264,12 @@
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id);
+
+            // Método para borrar el producto
             await this.productRepository.DeleteAsync(product);
+
             return RedirectToAction(nameof(Index));
         }
 

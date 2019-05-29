@@ -41,7 +41,7 @@
                 return;
             }
 
-            if (!this.Email.Equals("ceqn_20@hotmail.com") || this.Password.Equals("123456"))
+            if (!this.Email.Equals("ceqn_20@hotmail.com") || !this.Password.Equals("123456"))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Use or password wrong.", "Accept");
                 return;

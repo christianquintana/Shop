@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
 
+    // Modelo de vista para registro de usuario
     public class RegisterNewUserViewModel
     {
         [Required]

@@ -5,20 +5,26 @@
     using Data.Entities;
     using Helpers;
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc; 
+    using Microsoft.AspNetCore.Mvc;
     using Models;
 
     public class AccountController : Controller
     {
         private readonly IUserHelper userHelper;
 
+        // Constructor que toma un parametro IUserHelper que es interface de la clase UserHelper personalizada para administrar usuarios
         public AccountController(IUserHelper userHelper)
         {
             this.userHelper = userHelper;
         }
 
+        // Acción GET para iniciar sesión
+
+        // IActionResult: Define un contrato que representa el resultado de un método de acción.
+
         public IActionResult Login()
         {
+            // Obtiene un valor boleano que indica si el usuario ha sido autenticado
             if (this.User.Identity.IsAuthenticated)
             {
                 return this.RedirectToAction("Index", "Home");
@@ -27,12 +33,16 @@
             return this.View();
         }
 
+        // Acción POST para iniciar sesión
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (this.ModelState.IsValid)
             {
+                // Método para iniciar sesión
                 var result = await this.userHelper.LoginAsync(model);
+
                 if (result.Succeeded)
                 {
                     if (this.Request.Query.Keys.Contains("ReturnUrl"))
@@ -45,26 +55,35 @@
             }
 
             this.ModelState.AddModelError(string.Empty, "Failed to login.");
+
             return this.View(model);
         }
 
         public async Task<IActionResult> Logout()
         {
+            // Método para cerrar sesión
             await this.userHelper.LogoutAsync();
+
             return this.RedirectToAction("Index", "Home");
         }
+
+        // Acción GET para registro de usuario
 
         public IActionResult Register()
         {
             return this.View();
         }
 
+        // Acción POST para registro de usuario
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterNewUserViewModel model)
         {
             if (this.ModelState.IsValid)
             {
+                // Método para validar si existe y traer el usuario ingresado
                 var user = await this.userHelper.GetUserByEmailAsync(model.Username);
+
                 if (user == null)
                 {
                     user = new User
@@ -75,13 +94,16 @@
                         UserName = model.Username
                     };
 
+                    // Método para crear usuario
                     var result = await this.userHelper.AddUserAsync(user, model.Password);
+
                     if (result != IdentityResult.Success)
                     {
                         this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
+
                         return this.View(model);
                     }
-                    
+
                     var loginViewModel = new LoginViewModel
                     {
                         Password = model.Password,
@@ -89,6 +111,7 @@
                         Username = model.Username
                     };
 
+                    // Método para iniciar sesión
                     var result2 = await this.userHelper.LoginAsync(loginViewModel);
 
                     if (result2.Succeeded)
@@ -97,6 +120,7 @@
                     }
 
                     this.ModelState.AddModelError(string.Empty, "The user couldn't be login.");
+
                     return this.View(model);
                 }
 
