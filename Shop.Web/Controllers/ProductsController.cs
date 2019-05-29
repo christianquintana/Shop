@@ -1,5 +1,4 @@
-﻿
-namespace Shop.Web.Controllers
+﻿namespace Shop.Web.Controllers
 {
     using System;
     using System.IO;
@@ -11,7 +10,7 @@ namespace Shop.Web.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
-    using Shop.Web.Models;
+    using Models;
 
     [Authorize]
     public class ProductsController : Controller
