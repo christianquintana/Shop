@@ -5,10 +5,15 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}" 
              Title="Products">
     <ContentPage.Content>
-        <!--{Binding Products} es una instancia de la ProductsViewModel-->
-        <StackLayout BindingContext="{Binding Products}" Padding="8">
-            <!--ListView ya implementa un ScrollView / {Binding Products} es una coleccion especial ObservableCollection -->
-            <ListView IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" ItemsSource="{Binding Products}">
+        <!-- StackLayout (Contenedor (principal) 1) --> 
+        <StackLayout 
+            BindingContext="{Binding Products}" 
+            Padding="8">
+            <!--ListView ya implementa un ScrollView dentro -->
+            <ListView 
+                IsRefreshing="{Binding IsRefreshing}" 
+                HasUnevenRows="True" 
+                ItemsSource="{Binding Products}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -48,3 +53,22 @@
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+
+<!--
+    
+BindingContext : Propiedad para crear un vinculo entre la ProductsPage y la MainViewModel 
+BindingContext="{Binding Main, Source={StaticResource Locator}}"
+    Binding Main => Su contexto de datos esta vinculado o enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
+    Source={StaticResource Locator} => Su fuente es el diccionario de recursos con la llave de nombre Locator
+
+<StackLayout BindingContext="{Binding Products}" Padding="8">
+    {Binding Products}: es una instancia de la ProductsViewModel
+    
+<ListView IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" ItemsSource="{Binding Products}">
+    ItemsSource="{Binding Products}: origen de datos de la ListView, es una coleccion especial (ObservableCollection) para ser desplegada en la ListView
+    HasUnevenRows="True": permite que las filas tengan diferente tamaño
+    IsRefreshing="{Binding IsRefreshing}":
+    
+--> 
+
+    

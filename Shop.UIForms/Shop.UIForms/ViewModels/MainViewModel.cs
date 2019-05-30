@@ -5,9 +5,9 @@
 
     // La MainViewModel es la clase principal del proyecto, su objetivo es controlar las demas ViewModels
     public class MainViewModel 
-    {
-        // Apuntador a la misma clase (Patrón Singleton ó instancia única)
-        private static MainViewModel instance; 
+    {        
+        // Apuntador a la misma clase
+        private static MainViewModel instance; // Patrón Singleton ó instancia única
 
         public LoginViewModel Login { get; set; }
 
@@ -21,6 +21,7 @@
             instance = this;
         }
 
+        // Patrón Singleton ó instancia única
         public static MainViewModel GetInstance()
         {
             if (instance == null)

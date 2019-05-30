@@ -3,6 +3,12 @@
     using System;
     using Newtonsoft.Json;
 
+    // Copiar el resultado del Api del primer producto (producto/usuario) mediante Postman (entorno de desarrollo API)
+    // Instalar el paquete NuGet "Newtonsoft.Json" para que funcione el decorado "JsonProperty"
+    // Convertir codigo json a clases c# y extraer todos sus atributos http://json2csharp.com/
+    
+    // Esta clase es la que se utiliza en la aplicacion Móbil
+
     public class Product
     {
         [JsonProperty("id")]

@@ -13,7 +13,7 @@
 
 <!--
     
-App.xaml     : Es el punto declarativo inicial de una aplicación, puedes usarse para compartir recursos globales a lo largo de la aplicación, por ejemplo estilos globales
+App.xaml     : Es el punto declarativo inicial de una aplicación, puede usarse para compartir recursos globales a lo largo de la aplicación, por ejemplo estilos globales
     
 xmlns=       : La primera declaración de espacio de nombres XML significa que las etiquetas definidas dentro del archivo XAML sin prefijo se refieren a clases en Xamarin.Forms, por ejemplo ContentPage. 
 xmlns:x=     : La segunda declaración de espacio de nombres define un prefijo de x. Esto se usa para varios elementos y atributos que son intrínsecos a XAML y que son compatibles con otras implementaciones 

@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.Runtime.CompilerServices;
 
+    // BaseViewModel implementa la interface INotifyPropertyChanged
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -13,6 +14,7 @@
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        // Método genérico que permite cuando se cambia un valor en la ViewModel se refresque en la View
         protected void SetValue<T>(ref T backingField, T value, [CallerMemberName] string propertyName = null)
         {
             if (EqualityComparer<T>.Default.Equals(backingField, value))
