@@ -1,16 +1,23 @@
 ﻿namespace Shop.UIForms.ViewModels
 {
-    public class MainViewModel //Patrón MVVM (Modelo–vista vista-modelo): Es la clase principal, el objetivo es controlar las demas ViewModels
+    // Implementando el Patrón MVVM (model–view–viewmodel / Modelo–vista-modelo de vista): 
+    // Es un patrón de arquitectura de software. Se caracteriza por tratar de desacoplar lo máximo posible la interfaz de usuario de la lógica de la aplicación.
+
+    // La MainViewModel es la clase principal del proyecto, su objetivo es controlar las demas ViewModels
+    public class MainViewModel 
     {
-        private static MainViewModel instance; //apuntador a la misma clase (Patrón Singleton ó instancia única)
+        // Apuntador a la misma clase (Patrón Singleton ó instancia única)
+        private static MainViewModel instance; 
 
         public LoginViewModel Login { get; set; }
 
         public ProductsViewModel Products { get; set; }
 
+        // Contructor
         public MainViewModel()
         {
-            //this.Login = new LoginViewModel(); //Quitar, no es buena practica
+            // Comentar posteriormente: No es buena practica instanciar en la MainViewModel las otras ViewModel, solo referenciarlas
+            //this.Login = new LoginViewModel(); 
             instance = this;
         }
 

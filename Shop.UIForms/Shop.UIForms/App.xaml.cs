@@ -8,12 +8,16 @@ namespace Shop.UIForms
 {
     public partial class App : Application
     {
+        // Contructor
         public App()
         {
             InitializeComponent();
 
-            MainViewModel.GetInstance().Login = new LoginViewModel(); //antes de llamar(instanciar) a la Page, instanciamos en memoria la LoginViewModel ligada a esa Page
+            // Antes de llamar (instanciar) a la Page, instanciamos en memoria la LoginViewModel ligada a esa Page
+            MainViewModel.GetInstance().Login = new LoginViewModel(); 
 
+            // Se establece la página raíz (inicial) de la aplicación.
+            // NavigationPage: Es una página que gestiona la navegación y la experiencia de usuario de un stack (pila) de otras páginas.
             this.MainPage = new NavigationPage(new LoginPage());
         }
 

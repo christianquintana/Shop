@@ -5,10 +5,9 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}" 
              Title="Login">
     <ContentPage.Content>
-        <!--Contenedor 1-->
+        <!-- ScrollView (Contenedor (principal) 1) -->
         <ScrollView BindingContext="{Binding Login}">
-            <!--Contenedor 2-->
-            <!-- Padding="8,8" 8,8,8,8 Padding="8,10" 8,10,8,10   izq sup der inf-->
+            <!-- StackLayout (Contenedor 2)--> 
             <StackLayout Padding="8">
                 <Label Text="Email"></Label>
                 <Entry Keyboard="Email" Placeholder="Enter your email..." Text="{Binding Email}"></Entry>
@@ -19,3 +18,44 @@
         </ScrollView>
     </ContentPage.Content>
 </ContentPage>
+
+<!--
+
+Por estandar si tenemos una Page (LoginPage) esta debe ser controlada por una ViewModel (LoginViewModel)
+Toda la Page (LoginPage) lo gobierna el objeto Main de la clase MainViewModel, que se obtiene a traves del diccionario de recursos Locator
+Dentro del objeto ScrollView lo gobierna el objeto Login que es una propiedad en el objeto Main 
+
+Text="{Binding Email}" => enlazado a una propiedad de nombre Email existente en la LoginViewModel
+
+Command="{Binding LoginCommand}" => enlazado a un comando de nombre LoginCommand
+    
+BindingContext : Propiedad para crear un vinculo entre la LoginPage y la MainViewModel 
+BindingContext="{Binding Main, Source={StaticResource Locator}}" 
+    Binding Main => Su contexto de datos esta enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
+    Source={StaticResource Locator} => Su fuente es el diccionario de recursos con la llave de nombre Locator
+    
+xmlns=       : La primera declaración de espacio de nombres XML significa que las etiquetas definidas dentro del archivo XAML sin prefijo se refieren a clases en Xamarin.Forms, por ejemplo ContentPage. 
+xmlns:x=     : La segunda declaración de espacio de nombres define un prefijo de x. Esto se usa para varios elementos y atributos que son intrínsecos a XAML y que son compatibles con otras implementaciones 
+             : de XAML.
+xmlns:infra= : La declaración de espacio de nombres local le permite acceder a otras clases desde el proyecto de biblioteca estándar de .NET.
+x:Class=     : Este atributo especifica un nombre de clase .NET completo (Code-behind): significa que este archivo XAML define una nueva clase nombrada LoginPage en el espacio de nombres 
+             : Shop.UIForms.Views que deriva de la etiqueta ContentPage en la que aparece el atributo x:Class. 
+
+BindingContext : Los enlaces de datos conectan las propiedades de dos objetos, denominados origen y destino. En el código, se requieren dos pasos: la propiedad BindingContext del objeto de destino 
+                 debe establecerse en el objeto de origen, y el método SetBinding (a menudo se usa junto con la clase Binding) debe llamarse en el objeto de destino para vincular una propiedad de 
+                 ese objeto a una Propiedad del objeto fuente.
+
+ContentPage        : Es una página que muestra una única vista, a menudo un contenedor como StackLayout o ScrollView .
+ContentPage.Content: Obtiene o establece la vista que contiene el contenido de la página.
+StackLayout        : Un Layout<T> que coloca los elementos secundarios en una sola línea que puede orientarse vertical u horizontalmente.
+ScrollView         : Un elemento capaz de desplazarse si su Contenido lo requiere.
+ContentView        : Un elemento que contiene un solo elemento hijo. 
+ContentPresenter   : Gestor de layout para vistas de plantilla.
+
+Padding            : Establece el espacio de relleno requerido por todos los lados de un elemento
+                     Padding="8,8" (8 izq, 8 sup, 8 der, 8 inf) Padding="8,10" (8 izq, 10 sup, 8 der, 10 inf)  
+
+Patrón MVVM (model–view–viewmodel / Modelo–vista-modelo de vista):  
+Es un patrón de arquitectura de software. Se caracteriza por tratar de desacoplar lo máximo posible la interfaz de usuario de la lógica de la aplicación.
+        
+-->

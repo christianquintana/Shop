@@ -10,3 +10,30 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+
+<!--
+    
+App.xaml     : Es el punto declarativo inicial de una aplicación, puedes usarse para compartir recursos globales a lo largo de la aplicación, por ejemplo estilos globales
+    
+xmlns=       : La primera declaración de espacio de nombres XML significa que las etiquetas definidas dentro del archivo XAML sin prefijo se refieren a clases en Xamarin.Forms, por ejemplo ContentPage. 
+xmlns:x=     : La segunda declaración de espacio de nombres define un prefijo de x. Esto se usa para varios elementos y atributos que son intrínsecos a XAML y que son compatibles con otras implementaciones 
+               de XAML.
+xmlns:infra= : La declaración de espacio de nombres local le permite acceder a otras clases desde el proyecto de biblioteca estándar de .NET.
+x:Class=     : Este atributo especifica un nombre de clase .NET completo (Code-behind): significa que este archivo XAML define una nueva clase nombrada App en el espacio de nombres 
+               Shop.UIForms.App que deriva de la etiqueta Application en la que aparece el atributo x:Class. 
+
+Application            : Clase que representa una aplicación móvil multiplataforma.
+Application.Resources  : Obtiene o establece el diccionario de recursos para este objeto de aplicación.
+ResourceDictionary     : Es un repositorio de recursos que utiliza una aplicación Xamarin.Forms. Los recursos típicos que se almacenan en ResourceDictionary incluyen estilos, plantillas de control, 
+                         plantillas de datos, colores y conversores.
+
+xmlns:infra="clr-namespace:Shop.UIForms.Infrastructure"
+    xmlns:xxxx => se coloca un nombre "infra"
+    clr-namespace:Shop.UIForms.Infrastructure => se coloca la ruta donde se encuentra la clase InstanceLocator
+    
+<infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
+    <xxxx:InstanceLocator => se coloca el nombre configurado "infra"
+    InstanceLocator => nombre de la clase
+    x:Key="xxxx" => se coloca un nombre "Locator" que sirve para localizar la MainViewModel
+    
+-->

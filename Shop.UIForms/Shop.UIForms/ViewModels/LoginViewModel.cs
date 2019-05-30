@@ -12,9 +12,11 @@
 
         public string Password { get; set; }
 
-        public ICommand LoginCommand => new RelayCommand(Login); // Delegado solo lectura, instalar paquete NuGet MvvmLightLibsStd10
+        // Propiedad que define un comando
+        // Delegado solo lectura, instalar paquete NuGet MvvmLightLibsStd10
+        public ICommand LoginCommand => new RelayCommand(Login); 
 
-        //public ICommand LoginCommand // Es lo mismo
+        //public ICommand LoginCommand // Es lo mismo que el delegado
         //{
         //    get
         //    {
