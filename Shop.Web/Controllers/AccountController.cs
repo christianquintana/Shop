@@ -12,7 +12,7 @@
     {
         private readonly IUserHelper userHelper;
 
-        // Constructor que toma un parametro IUserHelper que es interface de la clase UserHelper personalizada para administrar usuarios
+        // Constructor que inyecta la IUserHelper que es la interface de la clase UserHelper personalizada para administrar usuarios
         public AccountController(IUserHelper userHelper)
         {
             this.userHelper = userHelper;
@@ -45,6 +45,7 @@
 
                 if (result.Succeeded)
                 {
+                    // Si el logueo viene con direccion de retorno (al iniciar sesión se redirige a la pagina solicitada del request)
                     if (this.Request.Query.Keys.Contains("ReturnUrl"))
                     {
                         return this.Redirect(this.Request.Query["ReturnUrl"].First());
@@ -86,6 +87,7 @@
 
                 if (user == null)
                 {
+                    // Llenamos la entidad User
                     user = new User
                     {
                         FirstName = model.FirstName,
@@ -106,9 +108,9 @@
 
                     var loginViewModel = new LoginViewModel
                     {
+                        Username = model.Username,
                         Password = model.Password,
-                        RememberMe = false,
-                        Username = model.Username
+                        RememberMe = false
                     };
 
                     // Método para iniciar sesión

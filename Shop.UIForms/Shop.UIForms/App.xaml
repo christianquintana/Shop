@@ -28,12 +28,12 @@ ResourceDictionary     : Es un repositorio de recursos que utiliza una aplicaciÃ
                          plantillas de datos, colores y conversores.
 
 xmlns:infra="clr-namespace:Shop.UIForms.Infrastructure"
-    xmlns:xxxx => se coloca un nombre "infra"
-    clr-namespace:Shop.UIForms.Infrastructure => se coloca la ruta donde se encuentra la clase InstanceLocator
+    xmlns:xxxx                                : se coloca un nombre "infra"
+    clr-namespace:Shop.UIForms.Infrastructure : se coloca la ruta donde se encuentra la clase InstanceLocator
     
 <infra:InstanceLocator x:Key="Locator"></infra:InstanceLocator>
-    <xxxx:InstanceLocator => se coloca el nombre configurado "infra"
-    InstanceLocator => nombre de la clase
-    x:Key="xxxx" => se coloca un nombre "Locator" que sirve para localizar la MainViewModel
+    <xxxx:InstanceLocator : se coloca el nombre configurado "infra"
+    InstanceLocator       : nombre de la clase
+    x:Key="xxxx"          : se coloca un nombre "Locator" que sirve para localizar la MainViewModel
     
 -->

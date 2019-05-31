@@ -41,6 +41,7 @@
         [JsonProperty("imageFullPath")]
         public Uri ImageFullPath { get; set; }
 
+        // Overriding: Permite cambiar o aumentar el comportamiento de los métodos en las clases, le dice al compilador que este método está anulando el mismo método nombrado en la clase base.
         public override string ToString()
         {
             return $"{this.Name} {this.Price:C2}";

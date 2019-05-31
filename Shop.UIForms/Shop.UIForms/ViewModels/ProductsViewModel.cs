@@ -29,8 +29,8 @@
             set { this.SetValue(ref this.products, value); } 
         }
 
-        // Propiedad publica
-        // Cualquier propiedad que se necesite cambiar en la ViewModel y que requiera verse reflejado en la View debemos hacer lo mismo
+        // Propiedad publica que indica si la ListView se está actualizando. 
+        // Cualquier propiedad que se necesite cambiar en la ViewModel y que requiera verse reflejado en la View debemos hacer lo mismo 
         public bool IsRefreshing 
         {
             // Cuando se pida el valor de IsRefreshing devuelve la propiedad Privada
@@ -51,11 +51,13 @@
         // Método para cargar los productos
         private async void LoadProducts()
         {
+            // indica que la ListView se está actualizando.
             this.IsRefreshing = true;
 
             //ApiService.GetListAsync<T>(string urlBase, string servicePrefix, string controller): Método que devuelve lo mismo que Postman
             var response = await this.ApiService.GetListAsync<Product>("https://shopceqn.azurewebsites.net", "/api", "/Products");
 
+            // indica que la ListView dejo de actualizarse. 
             this.IsRefreshing = false;
 
             // Se obtiene un valor booleano que indica si la respuesta HTTP fue exitosa  

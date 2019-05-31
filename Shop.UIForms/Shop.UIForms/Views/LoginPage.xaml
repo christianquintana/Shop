@@ -36,14 +36,14 @@ Por estandar si tenemos una Page (LoginPage) esta debe ser controlada por una Vi
 Toda la Page (LoginPage) lo gobierna el objeto Main de la clase MainViewModel, que se obtiene a traves del diccionario de recursos Locator
 Dentro del objeto ScrollView lo gobierna el objeto Login que es una propiedad en el objeto Main en la clase InstanceLocator
 
-Text="{Binding Email}" => vincula o enlaza a una propiedad de nombre Email existente en la LoginViewModel
+Text="{Binding Email}"           : vincula o enlaza a una propiedad de nombre Email existente en la LoginViewModel
 
-Command="{Binding LoginCommand}" => accion que toma el boton, vincula o enlaza a un comando de nombre LoginCommand
+Command="{Binding LoginCommand}" : accion que toma el boton, vincula o enlaza a un comando de nombre LoginCommand
     
 BindingContext : Propiedad para crear un vinculo entre la LoginPage y la MainViewModel 
 BindingContext="{Binding Main, Source={StaticResource Locator}}" 
-    Binding Main => Su contexto de datos esta vinculado o enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
-    Source={StaticResource Locator} => Su fuente es el diccionario de recursos con la llave de nombre Locator
+    Binding Main                    : Su contexto de datos esta vinculado o enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
+    Source={StaticResource Locator} : Su fuente es el diccionario de recursos con la llave de nombre Locator
     
 xmlns=       : La primera declaración de espacio de nombres XML significa que las etiquetas definidas dentro del archivo XAML sin prefijo se refieren a clases en Xamarin.Forms, por ejemplo ContentPage. 
 xmlns:x=     : La segunda declaración de espacio de nombres define un prefijo de x. Esto se usa para varios elementos y atributos que son intrínsecos a XAML y que son compatibles con otras implementaciones 

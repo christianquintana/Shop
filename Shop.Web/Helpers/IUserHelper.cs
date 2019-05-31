@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
-    using Shop.Web.Models;
+    using Models;
 
     // interface de la clase UserHelper personalizada para administrar usuarios
     public interface IUserHelper

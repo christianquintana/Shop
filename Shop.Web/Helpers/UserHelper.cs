@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
-    using Shop.Web.Models;
+    using Models;
 
     // Clase Helper personalizada para administrar usuarios    
     public class UserHelper : IUserHelper // Hereda de interface IUserHelper
@@ -15,7 +15,7 @@
         // Proporciona las API para el inicio de sesión del usuario.
         private readonly SignInManager<User> signInManager;
 
-        // Constructor
+        // Constructor que inyecta la clase UserManager para administracion de usuarios y SignInManager para administrar la sesión de usuario
         public UserHelper(UserManager<User> userManager, SignInManager<User> signInManager)
         {
             this.userManager = userManager;
@@ -32,14 +32,14 @@
         // Método para crear usuario
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
-            // Crea un usuario en el almacén de respaldo con la contraseña dada, como una operación asíncrona.
+            // Crea un usuario con la contraseña especificada, como una operación asíncrona.
             return await this.userManager.CreateAsync(user, password);
         }
 
         // Método para iniciar sesión
         public async Task<SignInResult> LoginAsync(LoginViewModel model)
         {
-            // Inicia sesión con el usuario utilizando el nombre de usuario y la contraseña
+            // Inicia sesión con el usuario utilizando el nombre de usuario y la contraseña, como una operación asíncrona.
             return await this.signInManager.PasswordSignInAsync(
                 model.Username,
                 model.Password,

@@ -20,7 +20,7 @@
 
         private readonly IUserHelper userHelper;
 
-        // Constructor que toma un parametro IProductRepository que es interface de la clase ProductRepository para CRUD (Crear, Leer, Actualizar y Borrar) de Productos
+        // Constructor que inyecta la IProductRepository que es interface de la clase ProductRepository para CRUD (Crear, Leer, Actualizar y Borrar) de Productos
         // y IUserHelper que es interface de la clase UserHelper personalizada para administrar usuarios
         public ProductsController(IProductRepository productRepository, IUserHelper userHelper) //IRepository repository,
         {

@@ -5,7 +5,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}" 
              Title="Products">
     <ContentPage.Content>
-        <!-- StackLayout (Contenedor (principal) 1) --> 
+        <!-- StackLayout (Contenedor (principal) 1) -->
         <StackLayout 
             BindingContext="{Binding Products}" 
             Padding="8">
@@ -19,9 +19,11 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <!-- Columna 1 ancho lo que ocupe -->
                                     <ColumnDefinition Width="Auto"/>
+                                    <!-- Columna 2 ancho lo que quede -->
                                     <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions> 
                                 <Image
                                 	Grid.Column="0"
                                 	Source="{Binding ImageFullPath}"
@@ -58,16 +60,29 @@
     
 BindingContext : Propiedad para crear un vinculo entre la ProductsPage y la MainViewModel 
 BindingContext="{Binding Main, Source={StaticResource Locator}}"
-    Binding Main => Su contexto de datos esta vinculado o enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
-    Source={StaticResource Locator} => Su fuente es el diccionario de recursos con la llave de nombre Locator
+    Binding Main                    : Su contexto de datos esta vinculado o enlazado al objeto Main (objeto instanciado en la clase InstanceLocator, unica instancia de la MainViewModel)
+    Source={StaticResource Locator} : Su fuente es el diccionario de recursos con la llave de nombre Locator
 
 <StackLayout BindingContext="{Binding Products}" Padding="8">
-    {Binding Products}: es una instancia de la ProductsViewModel
+    {Binding Products} : es una instancia de la ProductsViewModel
     
 <ListView IsRefreshing="{Binding IsRefreshing}" HasUnevenRows="True" ItemsSource="{Binding Products}">
-    ItemsSource="{Binding Products}: origen de datos de la ListView, es una coleccion especial (ObservableCollection) para ser desplegada en la ListView
-    HasUnevenRows="True": permite que las filas tengan diferente tamaño
-    IsRefreshing="{Binding IsRefreshing}":
+    ItemsSource="{Binding Products}       : origen de datos de la ListView, es una coleccion especial (ObservableCollection) para ser desplegada en la ListView
+    HasUnevenRows="True"                  : permite que las filas tengan diferente tamaño
+    IsRefreshing="{Binding IsRefreshing}" : Obtiene o establece un valor que indica si la ListView se está actualizando.
+
+<Image
+    Grid.Column="0"                  : indica que la imagen va en la Columna 1
+    Source="{Binding ImageFullPath}" : Propiedad establecida en el ItemsSource que esta basado en Products que es un ObservableCollection de Products que tiene la propiedad ImageFullPath
+    WidthRequest="100"               : respeta los anchos de la imagen pero altera los altos, por eso colocamos HasUnevenRows
+
+<StackLayout
+    Grid.Column="1"          : indica que el contenido va en la Columna 2
+    VerticalOptions="Center" : para que el contenido quede centrado a la imagen
+    
+<Label
+    Text="{Binding Price, StringFormat='Price: {0:C2}'}" : vinculamos el Label con la propiedad Price, formato C2 y el texto Price:
+    
     
 --> 
 
