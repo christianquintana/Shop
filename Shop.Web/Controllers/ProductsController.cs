@@ -12,7 +12,7 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    // Especifica que la clase o el método al que se aplica este atributo requiere autorización.
+    // Especifica que la clase o el método al que se aplica este atributo requiere credenciales.
     [Authorize]
     public class ProductsController : Controller
     {

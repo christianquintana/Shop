@@ -1,5 +1,6 @@
 ﻿namespace Shop.Web
 {
+    using System.Text;
     using Data;
     using Data.Entities;
     using Helpers;
@@ -11,6 +12,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
 
     // Clase de inicio
     public class Startup
@@ -45,6 +47,21 @@
                 cfg.Password.RequiredLength = 6;
             })
             .AddEntityFrameworkStores<DataContext>();
+
+            // Le decimos a la aplicacion que se van a generar Tokens (autenticación basada en Token (JWT Json Web Token) para proteger nuestras Apis de usuarios no autorizados)
+            // y se va a utilizar autenticacion, cookies, JwtBearer
+            services.AddAuthentication()
+                .AddCookie()
+                .AddJwtBearer(cfg =>
+                {
+                    cfg.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidIssuer = this.Configuration["Tokens:Issuer"],
+                        ValidAudience = this.Configuration["Tokens:Audience"],
+                        // SymmetricSecurityKey no se puede decompilar | AsymmetricSecurityKey se puede compilar y decompilar
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.Configuration["Tokens:Key"]))
+                    };
+                });
 
             // Registra el contexto dado como un servicio en IServiceCollection (Añade inyección de dependencia de base de datos en la aplicación)            
             services.AddDbContext<DataContext>(cfg =>

@@ -53,5 +53,30 @@
             // Cierra la sesión del usuario actual de la aplicación.
             await this.signInManager.SignOutAsync();
         }
+
+        // Método para modificar usuario
+        public async Task<IdentityResult> UpdateUserAsync(User user)
+        {
+            // Modifica un usuario con la contraseña especificada, como una operación asíncrona.
+            return await this.userManager.UpdateAsync(user);
+        }
+
+        // Método para modificar password de usuario
+        public async Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword)
+        {
+            // Cambia la contraseña de un usuario después de confirmar que la contraseña actual especificada es correcta, como una operación asíncrona
+            return await this.userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+        }
+
+        // Método para validar si el usuario y password ingresados son validos para iniciar sesión
+        public async Task<SignInResult> ValidatePasswordAsync(User user, string password)
+        {
+            // Intenta iniciar sesión con la contraseña de usuario
+            return await this.signInManager.CheckPasswordSignInAsync(
+                user,
+                password,
+                false);
+        }
+        
     }
 }

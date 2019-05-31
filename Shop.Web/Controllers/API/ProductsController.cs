@@ -1,7 +1,9 @@
 ﻿namespace Shop.Web.Controllers.API
 {
-    using Microsoft.AspNetCore.Mvc;
     using Data;
+    using Microsoft.AspNetCore.Mvc;    
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
 
     // API: acrónimo de Application Programming Interface (Interfaz de Programación de Aplicaciones). Tradicionalmente, de forma local, una API se expone a través de archivos DLL. En la Web, 
     // una API se expone a través de Servicios Web que permiten que las aplicaciones cliente obtengan y realicen operaciones con los datos que el servicio expone.
@@ -13,6 +15,8 @@
 
     // Característica introducida en el .NET Core framework conocido como token de ruta. El token [controlador] reemplaza los valores del nombre del controlador de la acción o clase donde se define la ruta.
     [Route("api/[Controller]")]
+    // Especifica que la clase o el método al que se aplica este atributo requiere credenciales.
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProductsController : Controller
     {
         private readonly IProductRepository productRepository;

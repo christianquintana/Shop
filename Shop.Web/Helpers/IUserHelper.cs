@@ -20,5 +20,14 @@
         // interface del método para cerrar sesión
         Task LogoutAsync();
 
+        // interface del método para modificar usuario
+        Task<IdentityResult> UpdateUserAsync(User user);
+
+        // interface del método para modificar password de usuario 
+        Task<IdentityResult> ChangePasswordAsync(User user, string oldPassword, string newPassword);
+
+        // interface del método para validar si el usuario y password ingresados son validos para iniciar sesión
+        Task<SignInResult> ValidatePasswordAsync(User user, string password);
+
     }
 }
