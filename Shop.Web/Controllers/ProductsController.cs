@@ -46,14 +46,20 @@
         {
             if (id == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound(); 
             }
 
             // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound();
             }
 
             return View(product);
@@ -145,14 +151,20 @@
         {
             if (id == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound(); 
             }
 
             // Método para buscar por id el producto
             var product = await this.productRepository.GetByIdAsync(id.Value);
             if (product == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound(); 
             }
 
             // Convertimos el Product a ProductViewModel
@@ -230,7 +242,10 @@
                     // Método para validar si el producto existe 
                     if (!await this.productRepository.ExistAsync(view.Id))
                     {
-                        return NotFound();
+                        // Muestra una vista de respuesta a un producto no encontrado
+                        return new NotFoundViewResult("ProductNotFound");
+                        // Muestra una pagina en blanco
+                        //return NotFound(); 
                     }
                     else
                     {
@@ -250,7 +265,10 @@
         {
             if (id == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound(); 
             }
 
             // Método para buscar por id el producto
@@ -258,7 +276,10 @@
 
             if (product == null)
             {
-                return NotFound();
+                // Muestra una vista de respuesta a un producto no encontrado
+                return new NotFoundViewResult("ProductNotFound");
+                // Muestra una pagina en blanco
+                //return NotFound(); 
             }
 
             return View(product);
@@ -279,6 +300,13 @@
             return RedirectToAction(nameof(Index));
         }
 
+        // Acción GET para mostrar una vista de respuesta a un producto no encontrado
+
+        public IActionResult ProductNotFound()
+        {
+            return this.View();
+        }
+        
         //public IActionResult Index()
         //{
         //    return View(this.repository.GetProducts());

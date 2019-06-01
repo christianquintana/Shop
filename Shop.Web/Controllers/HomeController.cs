@@ -25,5 +25,14 @@ namespace Shop.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        // Administrar paginas Not Found 
+        // Acción GET para mostrar una vista de respuesta a una pagina no encontrada
+        [Route("error/404")]
+        public IActionResult Error404()
+        {
+            return View();
+        }
+
     }
 }

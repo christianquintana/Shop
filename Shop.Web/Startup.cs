@@ -92,6 +92,14 @@
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Cuando no se tenga Login y requiera Login se ira a la pagina NotAuthorized
+            // Cuando se ingrese a una accion y se requiera permiso ira a la pagina NotAuthorized
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/NotAuthorized";
+                options.AccessDeniedPath = "/Account/NotAuthorized";
+            });
+            
             // El método SetCompatibilityVersion permite que una aplicación se inscriba o rechace los posibles cambios de comportamiento introducidos en ASP.NET Core MVC 2.1 o posterior. 
             // Estos cambios de comportamiento potencialmente de ruptura están generalmente en cómo se comporta el subsistema MVC y cómo en tiempo de ejecución llama a su código. 
             // De optar, obtiene el comportamiento más reciente y el comportamiento a largo plazo de ASP.NET Core.
@@ -114,6 +122,12 @@
                 app.UseHsts();
             }
 
+            // La arquitectura en pipeline(basada en filtros) consiste en ir transformando un flujo de datos en un proceso comprendido por varias fases secuenciales, siendo la entrada de cada una la salida de la anterior.
+
+            // Agrega un middleware StatusCodePages al canal. Especifica que el cuerpo de la respuesta debe generarse al volver a ejecutar la canalización de solicitud utilizando una ruta alternativa. 
+            // Esta ruta puede contener un marcador de posición '{0}' del código de estado.
+            // Pasa una pagina de nombre error y pasandole el numero de error
+            app.UseStatusCodePagesWithReExecute("/error/{0}");
             // Agrega middleware para redireccionar los requisitos HTTP a HTTPS. middleware: software que proporciona servicios a las aplicaciones
             app.UseHttpsRedirection();
             // Habilita el servicio de archivos estáticos para la ruta de solicitud actual

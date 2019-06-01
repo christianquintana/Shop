@@ -297,5 +297,13 @@
             return this.BadRequest();
         }
 
+        // Redirigir páginas no autorizadas
+        // Acción GET para ir a la pagina NotAuthorized
+
+        public IActionResult NotAuthorized()
+        {
+            return this.View();
+        }
+
     }
 }
