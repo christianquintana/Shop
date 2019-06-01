@@ -29,5 +29,13 @@
         // interface del método para validar si el usuario y password ingresados son validos para iniciar sesión
         Task<SignInResult> ValidatePasswordAsync(User user, string password);
 
+        // interface del método para verificar si existe un Rol y Crear Rol 
+        Task CheckRoleAsync(string rolName);
+
+        // interface del método para agregar usuario creado a un Rol 
+        Task AddUserToRoleAsync(User user, string rolName);
+
+        // interface del método para validar si usuario pertenece a un Rol
+        Task<bool> IsUserInRoleAsync(User user, string rolName);
     }
 }

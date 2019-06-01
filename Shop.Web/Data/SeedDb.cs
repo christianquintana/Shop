@@ -31,6 +31,10 @@
             // Si la base de datos existe, no se hace ningún esfuerzo para garantizar que sea compatible con el modelo para este contexto.
             await this.context.Database.EnsureCreatedAsync();
 
+            // Método para verificar si existe un Rol y Crear Rol
+            await this.userhelper.CheckRoleAsync("Admin");
+            await this.userhelper.CheckRoleAsync("Customer");
+             
             //var user = await this.userManager.FindByEmailAsync("ceqn_20@hotmail.com");
 
             // Invoca al método GetUserByEmailAsync de la IUserHelper para validar si existe y traer el usuario ingresado
@@ -55,8 +59,21 @@
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+
+                // Agregamos usuario creado a un Rol 
+                await this.userhelper.AddUserToRoleAsync(user, "Admin");
+
             }
 
+            // Valida si usuario pertenece a un Rol
+            var isInRole = await this.userhelper.IsUserInRoleAsync(user, "Admin");
+
+            if (!isInRole)
+            {
+                // Agregamos usuario creado a un Rol 
+                await this.userhelper.AddUserToRoleAsync(user, "Admin");
+            }
+             
             // Determina si la secuencia Products no contiene algún elemento 
             if (!this.context.Products.Any())
             {

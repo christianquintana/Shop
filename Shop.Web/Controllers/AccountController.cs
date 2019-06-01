@@ -239,6 +239,7 @@
         // [FromBody] Para forzar a la API web a leer un tipo en el cuerpo de la solicitud, en este caso se envia un LoginViewModel
 
         // Acción POST para crear un Token (autenticación basada en Token (JWT Json Web Token) para proteger nuestras Apis de usuarios no autorizados)
+        // Este es el método que usamos para hacer Login en la APLICACIÓN MÓVIL
 
         [HttpPost]
         public async Task<IActionResult> CreateToken([FromBody] LoginViewModel model)

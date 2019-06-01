@@ -14,12 +14,19 @@
         private readonly UserManager<User> userManager;
         // Proporciona las API para el inicio de sesión del usuario.
         private readonly SignInManager<User> signInManager;
+        // Proporciona las API para administrar roles de usuario
+        private readonly RoleManager<IdentityRole> roleManager;
 
-        // Constructor que inyecta la clase UserManager para administracion de usuarios y SignInManager para administrar la sesión de usuario
-        public UserHelper(UserManager<User> userManager, SignInManager<User> signInManager)
+        // Constructor que inyecta la clase UserManager para administracion de usuarios, SignInManager para administrar la sesión de usuario
+        // y RoleManager para administrar roles de usuario
+        public UserHelper(
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.roleManager = roleManager;
         }
 
         // Método para validar si existe y traer el usuario ingresado
@@ -77,6 +84,35 @@
                 password,
                 false);
         }
-        
+
+        // Método para verificar si existe un Rol
+        public async Task CheckRoleAsync(string roleName)
+        {
+            // Obtiene un indicador que indica si existe el nombre de rol especificado
+            var roleExists = await this.roleManager.RoleExistsAsync(roleName);
+
+            if (!roleExists)
+            {
+                // Crea el rol especificado en el almacén de persistencia
+                await this.roleManager.CreateAsync(new IdentityRole
+                {
+                    Name = roleName
+                });
+            }
+        }
+
+        // Método para agregar usuario creado a un Rol 
+        public async Task AddUserToRoleAsync(User user, string roleName)
+        {
+            // Agrega el usuario especificado al rol nombrado
+            await this.userManager.AddToRoleAsync(user, roleName);
+        }
+
+        // Método para validar si usuario pertenece a un Rol
+        public async Task<bool> IsUserInRoleAsync(User user, string roleName)
+        {
+            // Devuelve un indicador que indica si el usuario especificado es miembro del Rol indicado
+            return await this.userManager.IsInRoleAsync(user, roleName);
+        }
     }
 }

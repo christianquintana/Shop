@@ -12,8 +12,8 @@
     using Microsoft.EntityFrameworkCore;
     using Models;
 
-    // Especifica que la clase o el método al que se aplica este atributo requiere credenciales.
-    [Authorize]
+    // Especifica que la clase o el método al que se aplica este atributo requiere credenciales y Rol
+    //[Authorize(Roles = "Admin")]
     public class ProductsController : Controller
     {
         private readonly IProductRepository productRepository; //private readonly IRepository repository;
@@ -62,6 +62,7 @@
         // Acción GET para crear un producto
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -70,6 +71,7 @@
         // Acción POST para crear un producto que toma un parametro ProductViewModel 
 
         // POST: Products/Create
+        // No es necesario colocar [Authorize(Roles = "Admin")] ya que previamente requiere pasar por el GET 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductViewModel view) //Product product)
@@ -138,6 +140,7 @@
         // Acción GET para actualizar un producto
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -178,6 +181,7 @@
         // Acción POST para actualizar un producto que toma un parametro ProductViewModel 
 
         // POST: Products/Edit/5
+        // No es necesario colocar [Authorize(Roles = "Admin")] ya que previamente requiere pasar por el GET 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProductViewModel view)
@@ -241,6 +245,7 @@
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -260,6 +265,7 @@
         }
 
         // POST: Products/Delete/5
+        // No es necesario colocar [Authorize(Roles = "Admin")] ya que previamente requiere pasar por el GET 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
