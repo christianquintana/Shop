@@ -13,6 +13,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
+    using Shop.Web.Data.Repositories;
 
     // Clase de inicio
     public class Startup
@@ -80,6 +81,7 @@
             // Con ámbito: En el mismo ámbito, la instancia de objeto se inyectará en una sola solicitud y respuesta.
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICountryRepository, CountryRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IUserHelper, UserHelper>();
 
             // Singleton: En Singleton, el mismo objeto se inyectará en todas las solicitudes y respuestas. En este caso se creará una instancia global del objeto.

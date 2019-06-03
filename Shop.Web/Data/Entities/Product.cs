@@ -3,7 +3,7 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
-    public class Product : IEntity //herencia que indica que la clase debe contener una propiedad Id
+    public class Product : IEntity // Implementa la interface IEntity, obliga que haya una propiedad Id  
     {
         public int Id { get; set; }
 

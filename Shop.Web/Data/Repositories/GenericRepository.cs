@@ -6,7 +6,7 @@
     using Microsoft.EntityFrameworkCore;
 
     // Clase Repositorio genérico para CRUD (Crear, Leer, Actualizar y Borrar) de entidades    
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity // Hereda de interface IGenericRepository, IEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity // Implementa la interface IGenericRepository, IEntity
     {
         private readonly DataContext context;
 

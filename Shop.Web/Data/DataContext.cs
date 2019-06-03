@@ -10,11 +10,20 @@
 
     // IdentityDbContext<User> representa una clase que utiliza los tipos de entidad predeterminados para los usuarios de identidad de ASP.NET, roles, notificaciones(Claims), inicios de sesión. 
     // Utilice esta sobrecarga para agregar sus propios tipos de entidad.
-    public class DataContext : IdentityDbContext<User> //DbContext  
+    public class DataContext : IdentityDbContext<User> // DbContext
     {
         // DbSet representa una colección de todas las entidades en el contexto, o que se puede consultar desde la base de datos
         public DbSet<Product> Products { get; set; }
 
+        // User no se declara porque ya se esta heredando del DbContext
+        // Siempre el nombre del modelo se escribe en Singular y el nombre de la coleccion en Plural
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+
+        public DbSet<OrderDetailTemp> OrderDetailTemps { get; set; }
+         
         public DbSet<Country> Countries { get; set; }
 
         // Constructor que toma un parametro DbContextOptions que se utiliza para pasar los ajustes de configuración al contexto a través de la inyección de dependencia.
