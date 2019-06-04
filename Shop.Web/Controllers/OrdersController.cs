@@ -7,12 +7,15 @@
     using Data.Repositories;
     using Models;
 
+    // Especifica que la clase o el método al que se aplica este atributo requiere credenciales 
     [Authorize]
     public class OrdersController : Controller
     {
         private readonly IOrderRepository orderRepository;
         private readonly IProductRepository productRepository;
 
+        // Constructor que inyecta la IOrderRepository que es interface de la clase OrderRepository  
+        // y IProductRepository que es interface de la clase ProductRepository para entre otros traer el metodo GetComboProducts
         public OrdersController(IOrderRepository orderRepository, IProductRepository productRepository)
         {
             this.orderRepository = orderRepository;
@@ -21,13 +24,16 @@
 
         public async Task<IActionResult> Index()
         {
+            // Método para traer todas las ordenes de un usuario
             var model = await orderRepository.GetOrdersAsync(this.User.Identity.Name);
             return View(model);
         }
 
         public async Task<IActionResult> Create()
         {
+            // Método para traer todo el detalle (temporal) de las ordenes de un usuario
             var model = await this.orderRepository.GetDetailTempsAsync(this.User.Identity.Name);
+
             return this.View(model);
         }
 

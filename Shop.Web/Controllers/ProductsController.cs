@@ -300,7 +300,7 @@
             return RedirectToAction(nameof(Index));
         }
 
-        // Acción GET para mostrar una vista de respuesta a un producto no encontrado
+        // Acción GET para mostrar una vista de respuesta a un producto no encontrado (errores Not Found)
 
         public IActionResult ProductNotFound()
         {

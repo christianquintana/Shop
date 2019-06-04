@@ -15,7 +15,7 @@
     using Microsoft.IdentityModel.Tokens;
     using Shop.Web.Data.Repositories;
 
-    // Clase de inicio
+    // Clase de inicio donde se configura el 90% del proyecto
     public class Startup
     {
         // El método ConfigureServices configura/registra los servicios de la aplicación y se consumen en toda la aplicación a través de la inyección de dependencia (DI) o ApplicationServices.
@@ -94,6 +94,7 @@
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            // Redirigir páginas no autorizadas
             // Cuando no se tenga Login y requiera Login se ira a la pagina NotAuthorized
             // Cuando se ingrese a una accion y se requiera permiso ira a la pagina NotAuthorized
             services.ConfigureApplicationCookie(options =>
@@ -126,6 +127,7 @@
 
             // La arquitectura en pipeline(basada en filtros) consiste en ir transformando un flujo de datos en un proceso comprendido por varias fases secuenciales, siendo la entrada de cada una la salida de la anterior.
 
+            // Administrar errores Not Found 
             // Agrega un middleware StatusCodePages al canal. Especifica que el cuerpo de la respuesta debe generarse al volver a ejecutar la canalización de solicitud utilizando una ruta alternativa. 
             // Esta ruta puede contener un marcador de posición '{0}' del código de estado.
             // Pasa una pagina de nombre error y pasandole el numero de error

@@ -25,6 +25,8 @@
             return this.context.Products.Include(p => p.User);
         }
 
+        // Método para traer todos los Productos para cargar el Combo
+        // IEnumerable: Expone un enumerador, que admite una iteración simple sobre una colección de un tipo especificado.
         public IEnumerable<SelectListItem> GetComboProducts()
         {
             var list = this.context.Products.Select(p => new SelectListItem

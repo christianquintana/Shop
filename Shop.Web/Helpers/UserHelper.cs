@@ -85,7 +85,7 @@
                 false);
         }
 
-        // Método para verificar si existe un Rol
+        // Método para verificar si existe un Rol y Crear Rol 
         public async Task CheckRoleAsync(string roleName)
         {
             // Obtiene un indicador que indica si existe el nombre de rol especificado
@@ -111,7 +111,7 @@
         // Método para validar si usuario pertenece a un Rol
         public async Task<bool> IsUserInRoleAsync(User user, string roleName)
         {
-            // Devuelve un indicador que indica si el usuario especificado es miembro del Rol indicado
+            // Devuelve un indicador booleano que indica si el usuario especificado es miembro del Rol indicado
             return await this.userManager.IsInRoleAsync(user, roleName);
         }
     }

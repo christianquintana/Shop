@@ -14,6 +14,8 @@
         // IQueryable: Proporciona funcionalidad para evaluar consultas contra un origen de datos específico en el que no se especifica el tipo de datos.
         IQueryable GetAllWithUsers();
 
+        // interface del método para traer todos los Productos para cargar el Combo
+        // IEnumerable: Expone un enumerador, que admite una iteración simple sobre una colección de un tipo especificado.
         IEnumerable<SelectListItem> GetComboProducts();
 
     }

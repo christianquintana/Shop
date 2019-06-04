@@ -13,14 +13,17 @@
         private readonly DataContext context;
         private readonly IUserHelper userHelper;
 
+        // Constructor que inyecta el DataContext y IUserHelper para poder manipular usuarios 
         public OrderRepository(DataContext context, IUserHelper userHelper) : base(context)
         {
             this.context = context;
             this.userHelper = userHelper;
-        } 
+        }
 
+        // Método para traer todas las ordenes de un usuario
         public async Task<IQueryable<Order>> GetOrdersAsync(string userName)
         {
+            // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
             var user = await this.userHelper.GetUserByEmailAsync(userName);
 
             if (user == null)
@@ -28,8 +31,11 @@
                 return null;
             }
 
+            // Valida si usuario pertenece a un Rol
             if (await this.userHelper.IsUserInRoleAsync(user, "Admin"))
             {
+                // El método Include especifica los objetos relacionados para incluir en los resultados de la consulta. (Orders inner join User | Orders inner join Items)
+                // El método ThenInclude permite profundizar en las relaciones para incluir múltiples niveles de datos relacionados. (Items inner join Product)
                 return this.context.Orders
                     .Include(o => o.User)
                     .Include(o => o.Items)
@@ -44,8 +50,10 @@
                 .OrderByDescending(o => o.OrderDate);
         }
 
+        // Método para traer todo el detalle (temporal) de las ordenes de un usuario
         public async Task<IQueryable<OrderDetailTemp>> GetDetailTempsAsync(string userName)
         {
+            // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
             var user = await this.userHelper.GetUserByEmailAsync(userName);
 
             if (user == null)
@@ -61,6 +69,7 @@
 
         public async Task AddItemToOrderAsync(AddItemViewModel model, string userName)
         {
+            // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
             var user = await this.userHelper.GetUserByEmailAsync(userName);
 
             if (user == null)
@@ -134,6 +143,7 @@
 
         public async Task<bool> ConfirmOrderAsync(string userName)
         {
+            // Se carga la entidad User mediante el método que valida y trae el usuario que se a logueado
             var user = await this.userHelper.GetUserByEmailAsync(userName);
 
             if (user == null)
