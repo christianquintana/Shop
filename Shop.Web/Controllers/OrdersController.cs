@@ -1,5 +1,6 @@
 ﻿namespace Shop.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -115,6 +116,45 @@
             }
 
             return this.RedirectToAction("Create");
+        }
+
+        public async Task<IActionResult> Delivery(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            // Método para traer una orden
+            var order = await this.orderRepository.GetOrdersAsync(id.Value);
+
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            // Se crea un nuevo objeto DeliveryViewModel 
+            var model = new DeliveryViewModel
+            {
+                Id = order.Id,
+                DeliveryDate = DateTime.Today
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delivery(DeliveryViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                // Método para actualizar fecha de entrega de una orden
+                await this.orderRepository.DeliverOrder(model);
+
+                return this.RedirectToAction("Index");
+            }
+
+            return this.View();
         }
 
     }

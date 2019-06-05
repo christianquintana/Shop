@@ -1,6 +1,7 @@
 ﻿namespace Shop.Web.Data
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using Entities;
@@ -34,7 +35,27 @@
             // Método para verificar si existe un Rol y Crear Rol
             await this.userhelper.CheckRoleAsync("Admin");
             await this.userhelper.CheckRoleAsync("Customer");
-             
+
+            // Si la coleccion Countries no tiene elementos 
+            if (!this.context.Countries.Any())
+            {
+                // Se crea una coleccion de City
+                var cities = new List<City>();
+                cities.Add(new City { Name = "Medellín" });
+                cities.Add(new City { Name = "Bogotá" });
+                cities.Add(new City { Name = "Calí" });
+
+                // Se crea un Country que incluye la coleccion de City 
+                this.context.Countries.Add(new Country
+                {
+                    Cities = cities,
+                    Name = "Colombia"
+                });
+
+                // Procede a guardar de forma asíncrona los cambios realizados en el contexto en la base de datos 
+                await this.context.SaveChangesAsync();
+            }
+
             //var user = await this.userManager.FindByEmailAsync("ceqn_20@hotmail.com");
 
             // Invoca al método GetUserByEmailAsync de la IUserHelper para validar si existe y traer el usuario ingresado
@@ -48,7 +69,10 @@
                     LastName = "Quintana",
                     Email = "ceqn_20@hotmail.com",
                     UserName = "ceqn_20@hotmail.com",
-                    PhoneNumber = "99999999"
+                    PhoneNumber = "99999999",
+                    Address = "Calle Luna Calle Sol",
+                    CityId = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault().Id,
+                    City = this.context.Countries.FirstOrDefault().Cities.FirstOrDefault()
                 };
 
                 //var result = await this.userManager.CreateAsync(user, "123456");
@@ -73,7 +97,7 @@
                 // Agregamos usuario creado a un Rol 
                 await this.userhelper.AddUserToRoleAsync(user, "Admin");
             }
-             
+
             // Determina si la secuencia Products no contiene algún elemento 
             if (!this.context.Products.Any())
             {
@@ -95,7 +119,7 @@
                 Price = this.random.Next(100),
                 IsAvailabe = true,
                 Stock = this.random.Next(100),
-                User = user 
+                User = user
             });
         }
 

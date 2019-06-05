@@ -210,5 +210,32 @@
             return true;
         }
 
+        public async Task DeliverOrder(DeliveryViewModel model)
+        {
+            // Buscamos por el Id en la entidad Orders
+            var order = await this.context.Orders.FindAsync(model.Id);
+
+            if (order == null)
+            {
+                return;
+            }
+
+            // Se actualiza la fecha de entrega en la entidad
+            order.DeliveryDate = model.DeliveryDate;
+
+            // Se actualiza el cambio en el contexto
+            this.context.Orders.Update(order);
+
+            // Guardo los cambios del contexto a la base de datos 
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrdersAsync(int id)
+        {
+            // Buscamos por el Id en la entidad Orders y devolvemos la orden 
+            return await this.context.Orders.FindAsync(id);
+        }
+       
+
     }
 }

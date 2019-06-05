@@ -26,6 +26,8 @@
          
         public DbSet<Country> Countries { get; set; }
 
+        public DbSet<City> Cities { get; set; }
+
         // Constructor que toma un parametro DbContextOptions que se utiliza para pasar los ajustes de configuración al contexto a través de la inyección de dependencia.
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {

@@ -25,5 +25,12 @@
         // interface del método para confirmar la orden 
         Task<bool> ConfirmOrderAsync(string userName);
 
+        // interface del método para actualizar fecha de entrega de una orden
+        Task DeliverOrder(DeliveryViewModel model);
+
+        // interface del método para traer una orden (sobrecarga GetOrdersAsync(string userName))
+        Task<Order> GetOrdersAsync(int id);
+
+
     }
 }
