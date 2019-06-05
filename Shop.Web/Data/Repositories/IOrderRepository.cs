@@ -13,14 +13,16 @@
         // interface del método para traer todo el detalle (temporal) de las ordenes de un usuario
         Task<IQueryable<OrderDetailTemp>> GetDetailTempsAsync(string userName);
 
-        //// interface del método para agregar un item a una ordenes de un usuario
+        // interface del método para agregar un item en una orden 
         Task AddItemToOrderAsync(AddItemViewModel model, string userName);
 
-        //// interface del método para modifica la cantidad a un item de una orden (temporal)
+        // interface del método para aumentar(+) disminuir(-) la cantidad de un item en una orden (temporal)
         Task ModifyOrderDetailTempQuantityAsync(int id, double quantity);
 
+        // interface del método para eliminar un item en una orden (temporal)
         Task DeleteDetailTempAsync(int id);
 
+        // interface del método para confirmar la orden 
         Task<bool> ConfirmOrderAsync(string userName);
 
     }

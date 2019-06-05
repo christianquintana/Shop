@@ -42,6 +42,7 @@
             var model = new AddItemViewModel
             {
                 Quantity = 1,
+                // Método para traer todos los Productos para cargar el Combo
                 Products = this.productRepository.GetComboProducts()
             };
 
@@ -54,7 +55,9 @@
         {
             if (this.ModelState.IsValid)
             {
+                // Método para agregar un item en una orden 
                 await this.orderRepository.AddItemToOrderAsync(model, this.User.Identity.Name);
+
                 return this.RedirectToAction("Create");
             }
 
@@ -68,6 +71,7 @@
                 return NotFound();
             }
 
+            // Método para eliminar un item en una orden (temporal)
             await this.orderRepository.DeleteDetailTempAsync(id.Value);
 
             return this.RedirectToAction("Create");
@@ -80,6 +84,7 @@
                 return NotFound();
             }
 
+            // Método para aumentar(+) la cantidad de un item en una orden 
             await this.orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value, 1);
 
             return this.RedirectToAction("Create");
@@ -92,6 +97,7 @@
                 return NotFound();
             }
 
+            // Método para disminuir(-) la cantidad de un item en una orden 
             await this.orderRepository.ModifyOrderDetailTempQuantityAsync(id.Value, -1);
 
             return this.RedirectToAction("Create");
@@ -99,7 +105,8 @@
 
         public async Task<IActionResult> ConfirmOrder()
         {
-            // TODO: ConfirmOrderAsync que devuelva un response para pintar al usuario que paso
+            // TODO: ConfirmOrderAsync deberia devolver una respuesta en lugar de un booleano para poder pintarle al usuario que paso
+            // Método para confirmar la orden 
             var response = await this.orderRepository.ConfirmOrderAsync(this.User.Identity.Name);
 
             if (response)
